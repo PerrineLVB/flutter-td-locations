@@ -8,6 +8,7 @@ class Habitation {
   int chambres;
   int superficie;
   double prixmois;
+  double prixnuit;
   int lits;
   int salleBains;
   List<Option> options;
@@ -28,6 +29,7 @@ class Habitation {
       this.salleBains,
       this.superficie,
       this.prixmois,
+      this.prixnuit,
       {this.options = const [],
       this.optionspayantes = const []});
 
@@ -43,6 +45,7 @@ class Habitation {
         salleBains = json['sdb'],
         superficie = json['superficie'],
         prixmois = json['prixmois'],
+        prixnuit = json['prixnuit'],
         options = (json['items'] as List)
             .map((item) => Option.fromJson(item))
             .toList(),

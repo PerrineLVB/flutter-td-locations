@@ -31,6 +31,7 @@ class _ResaLocationState extends State<ResaLocation> {
   @override
   void initState() {
     super.initState();
+    _loadOptionPayantes();
   }
 
   _buildResume() {
@@ -153,37 +154,45 @@ class _ResaLocationState extends State<ResaLocation> {
         .toList();
   }
 
-  _buildOptionsPayantes(context) {
-    return Column(
-      children: optionPayanteChecks
-          .map((option) => CheckboxListTile(
-                title: Text(option.libelle),
-                subtitle: Text(option.description),
-                value: option.checked,
-                onChanged: (bool? value) {
-                  setState(() {
-                    option.checked = value ?? false;
-                  });
-                },
-                secondary: Text(format.format(option.prix)),
-              ))
-          .toList(),
+  _buildOptionsPayantes(BuildContext context) {
+    return Wrap(
+      children: Iterable.generate(
+        optionPayanteChecks.length,
+        (index) {
+          var option = optionPayanteChecks[index];
+          return CheckboxListTile(
+            title: Text(option.libelle),
+            subtitle: Text(option.description),
+            value: option.checked,
+            onChanged: (bool? value) {
+              setState(() {
+                option.checked = value ?? false;
+              });
+            },
+            secondary: Text(format.format(option.prix)),
+          );
+        },
+      ).toList(),
     );
   }
 
-  //   Checkbox(
-  //   value: isChecked,
-  //   checkColor: mediumGreen,
-  //   onChanged: (bool? value) {
-  //     setState(() {
-  //       isChecked = value ?? false;
-  //     });
-  //   },
-  // ),
+  double calculateTotalPrice() {
+    int numberOfNights = dateFin.difference(dateDebut).inDays;
+    double pricePerNight = widget.habitation
+        .prixnuit;
+    double totalPrice = numberOfNights * pricePerNight * selectedNbPersonnes;
+
+    for (var option in optionPayanteChecks) {
+      if (option.checked) {
+        totalPrice += option.prix;
+      }
+    }
+
+    return totalPrice;
+  }
 
   @override
   Widget build(BuildContext context) {
-    _loadOptionPayantes();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reservation'),
@@ -195,8 +204,52 @@ class _ResaLocationState extends State<ResaLocation> {
           _buildDates(),
           _buildNbPersonnes(),
           _buildOptionsPayantes(context),
-          // TotalWidget(prixTotal),
+          TotalWidget(prixTotal: calculateTotalPrice()),
           // _buildRentButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class TotalWidget extends StatelessWidget {
+  final double prixTotal;
+
+  TotalWidget({required this.prixTotal});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(color: darkBlue, width: 2.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Expanded(
+            child: Center(
+              child: Text(
+                'TOTAL',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: darkBlue,
+                ),
+              ),
+            ),
+          ),
+          Text(
+            '${prixTotal.toStringAsFixed(2)} €',
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: darkBlue,
+            ),
+          ),
         ],
       ),
     );

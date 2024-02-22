@@ -9,8 +9,6 @@ import 'package:location/views/share/habitation_features_widget.dart';
 class HabitationDetails extends StatefulWidget {
   final Habitation _habitation;
 
-  getHabitation() => _habitation;
-
   const HabitationDetails(this._habitation, {super.key});
 
   @override
