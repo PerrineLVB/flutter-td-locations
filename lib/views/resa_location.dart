@@ -33,11 +33,17 @@ class _ResaLocationState extends State<ResaLocation> {
   }
 
   _buildResume() {
-    return ListTile(
-      tileColor: lightBlue,
-      leading: const Icon(Icons.home),
-      title: Text(widget.habitation.libelle!),
-      subtitle: Text(widget.habitation.adresse!),
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: ListTile(
+        tileColor: lightBlue,
+        leading: const Icon(Icons.home),
+        title: Text(widget.habitation.libelle!),
+        subtitle: Text(widget.habitation.adresse!),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
     );
   }
 
