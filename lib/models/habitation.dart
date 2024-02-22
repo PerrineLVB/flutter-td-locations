@@ -57,7 +57,7 @@ class Option {
   String libelle;
   String description;
 
-  // Option(this.id, this.libelle, {this.description = ""});
+  Option(this.id, this.libelle, {this.description = ""});
 
   Option.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -68,8 +68,8 @@ class Option {
 class OptionPayante extends Option {
   double prix;
 
-  // OptionPayante(super.id, super.libelle,
-  //     {super.description = "", this.prix = 0});
+  OptionPayante(super.id, super.libelle,
+      {super.description = "", this.prix = 0});
   OptionPayante.fromJson(Map<String, dynamic> json)
       : prix = json['prix'],
         super.fromJson(json['optionpayante']);
