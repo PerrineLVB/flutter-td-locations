@@ -178,8 +178,10 @@ class _ResaLocationState extends State<ResaLocation> {
 
   double calculateTotalPrice() {
     int numberOfNights = dateFin.difference(dateDebut).inDays;
-    double pricePerNight = widget.habitation
-        .prixnuit;
+    if (numberOfNights == 0) {
+      return 0.0;
+    }
+    double pricePerNight = widget.habitation.prixnuit;
     double totalPrice = numberOfNights * pricePerNight * selectedNbPersonnes;
 
     for (var option in optionPayanteChecks) {
@@ -189,6 +191,35 @@ class _ResaLocationState extends State<ResaLocation> {
     }
 
     return totalPrice;
+  }
+
+  _buildRentButton() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 150, vertical: 20),
+      decoration: BoxDecoration(
+        color: darkBlue,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextButton(
+              onPressed: () {
+                print('Rent button pressed');
+              },
+              child: const Text(
+                'Louer',
+                style: TextStyle(
+                  color: Colors.white, // white text color
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -205,7 +236,7 @@ class _ResaLocationState extends State<ResaLocation> {
           _buildNbPersonnes(),
           _buildOptionsPayantes(context),
           TotalWidget(prixTotal: calculateTotalPrice()),
-          // _buildRentButton(),
+          _buildRentButton(),
         ],
       ),
     );
@@ -215,12 +246,12 @@ class _ResaLocationState extends State<ResaLocation> {
 class TotalWidget extends StatelessWidget {
   final double prixTotal;
 
-  TotalWidget({required this.prixTotal});
+  const TotalWidget({super.key, required this.prixTotal});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
