@@ -5,14 +5,13 @@ import 'package:location/share/location_style.dart';
 import 'package:location/share/location_text_style.dart';
 import 'package:location/views/resa_location.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
-import 'package:location/views/share/habitation_option.dart';
 
 class HabitationDetails extends StatefulWidget {
   final Habitation _habitation;
 
   getHabitation() => _habitation;
 
-  const HabitationDetails(this._habitation, {Key? key}) : super(key: key);
+  const HabitationDetails(this._habitation, {super.key});
 
   @override
   State<HabitationDetails> createState() => _HabitationDetailsState();
@@ -48,9 +47,9 @@ class _HabitationDetailsState extends State<HabitationDetails> {
             margin: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                CustomDivider(name: 'Inclus'),
+                const CustomDivider(name: 'Inclus'),
                 _buildItems(),
-                CustomDivider(name: 'Options'),
+                const CustomDivider(name: 'Options'),
                 _buildOptionsPayantes(),
               ],
             ),
@@ -69,18 +68,18 @@ class _HabitationDetailsState extends State<HabitationDetails> {
         color: LocationStyle.backgroundColorPurple,
         borderRadius: BorderRadius.circular(8.0),
       ),
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               format.format(widget._habitation.prixmois),
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -104,7 +103,7 @@ class _HabitationDetailsState extends State<HabitationDetails> {
         widget._habitation.options.length,
         (i) => Container(
           width: width,
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -127,7 +126,7 @@ class _HabitationDetailsState extends State<HabitationDetails> {
         widget._habitation.optionspayantes.length,
         (i) => Container(
           width: width,
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -154,17 +153,17 @@ class CustomDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 36,
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
         children: [
           Text(
             name,
             style: LocationTextStyle.subtitleBoldTextStyle,
           ),
-          SizedBox(
+          const SizedBox(
             width: 8.0,
           ),
-          Expanded(
+          const Expanded(
             child: Divider(),
           ),
         ],

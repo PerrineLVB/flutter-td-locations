@@ -4,13 +4,12 @@ import 'package:location/models/habitation.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/views/habitation_details.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
-import 'package:location/views/share/habitation_option.dart';
 
 class HabitationList extends StatelessWidget {
   final HabitationService service = HabitationService();
   late List<Habitation> _habitations;
   final bool isHouseList;
-  HabitationList(this.isHouseList, {Key? key}) : super(key: key) {
+  HabitationList(this.isHouseList, {super.key}) {
     _habitations =
         isHouseList ? service.getMaisons() : service.getAppartements();
   }
@@ -20,7 +19,7 @@ class HabitationList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text("Liste des ${this.isHouseList ? 'maisons' : 'appartements'}"),
+            Text("Liste des ${isHouseList ? 'maisons' : 'appartements'}"),
       ),
       body: Center(
         child: ListView.builder(
@@ -35,9 +34,10 @@ class HabitationList extends StatelessWidget {
 
   _buildRow(Habitation habitation, BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(4.0),
+      margin: const EdgeInsets.all(4.0),
       child: GestureDetector(
         onTap: () {
+          print('prout');
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -46,7 +46,7 @@ class HabitationList extends StatelessWidget {
         },
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 150,
               width: MediaQuery.of(context).size.width,
               child: ClipRRect(
@@ -82,7 +82,7 @@ class HabitationList extends StatelessWidget {
                 flex: 1,
                 child: Text(
                   format.format(habitation.prixmois),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Roboto',
                     fontSize: 22,

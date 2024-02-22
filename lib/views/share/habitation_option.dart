@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HabitationOption extends StatelessWidget {
   final String texte;
   final IconData icon;
-  const HabitationOption(this.icon, this.texte, {Key? key}) : super(key: key);
+  const HabitationOption(this.icon, this.texte, {super.key});
 
   @override
   Widget build(BuildContext context) {

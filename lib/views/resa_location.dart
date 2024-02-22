@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/colors.dart';
 import 'package:location/models/habitation.dart';
-import 'package:location/views/habitation_details.dart';
 
 class ResaLocation extends StatefulWidget {
   final Habitation habitation;
@@ -24,6 +23,8 @@ class _ResaLocationState extends State<ResaLocation> {
   DateTime dateFin = DateTime.now();
   String nbPersonnes = '1';
   List<OptionPayanteCheck> optionPayanteChecks = [];
+  List<int> nbPersonnesList = List.generate(8, (index) => index + 1);
+  int selectedNbPersonnes = 1;
 
   var format = NumberFormat('### €');
 
@@ -38,8 +39,8 @@ class _ResaLocationState extends State<ResaLocation> {
       child: ListTile(
         tileColor: lightBlue,
         leading: const Icon(Icons.home),
-        title: Text(widget.habitation.libelle!),
-        subtitle: Text(widget.habitation.adresse!),
+        title: Text(widget.habitation.libelle),
+        subtitle: Text(widget.habitation.adresse),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -117,10 +118,6 @@ class _ResaLocationState extends State<ResaLocation> {
   }
 
   _buildNbPersonnes() {
-    List<int> nbPersonnesList = List.generate(8, (index) => index + 1);
-
-    int selectedNbPersonnes = 1;
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
@@ -132,7 +129,9 @@ class _ResaLocationState extends State<ResaLocation> {
             onChanged: (value) {
               print('Selected Number of Persons: $value');
               if (value != null) {
-                selectedNbPersonnes = value;
+                setState(() {
+                  selectedNbPersonnes = value;
+                });
               }
             },
             items: nbPersonnesList.map((int nbPersonnes) {
@@ -147,9 +146,44 @@ class _ResaLocationState extends State<ResaLocation> {
     );
   }
 
+  _loadOptionPayantes() {
+    optionPayanteChecks = widget.habitation.optionspayantes
+        .map((option) => OptionPayanteCheck(option.id, option.libelle, false,
+            description: option.description, prix: option.prix))
+        .toList();
+  }
+
+  _buildOptionsPayantes(context) {
+    return Column(
+      children: optionPayanteChecks
+          .map((option) => CheckboxListTile(
+                title: Text(option.libelle),
+                subtitle: Text(option.description),
+                value: option.checked,
+                onChanged: (bool? value) {
+                  setState(() {
+                    option.checked = value ?? false;
+                  });
+                },
+                secondary: Text(format.format(option.prix)),
+              ))
+          .toList(),
+    );
+  }
+
+  //   Checkbox(
+  //   value: isChecked,
+  //   checkColor: mediumGreen,
+  //   onChanged: (bool? value) {
+  //     setState(() {
+  //       isChecked = value ?? false;
+  //     });
+  //   },
+  // ),
+
   @override
   Widget build(BuildContext context) {
-    // _loadOptionPayantes();
+    _loadOptionPayantes();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reservation'),
@@ -160,7 +194,7 @@ class _ResaLocationState extends State<ResaLocation> {
           _buildResume(),
           _buildDates(),
           _buildNbPersonnes(),
-          // _buildOptionsPayantes(context),
+          _buildOptionsPayantes(context),
           // TotalWidget(prixTotal),
           // _buildRentButton(),
         ],
