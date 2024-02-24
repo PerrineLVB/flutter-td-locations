@@ -31,8 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^6.1.0
-  email_validator: '^2.1.16'
-
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +39,8 @@ dependencies:
   intl: any
   flutter_localizations:
     sdk: flutter
+  email_validator: ^2.1.17
+  http: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -36,4 +36,15 @@ class HabitationService {
         .where((element) => element.typeHabitat.id == (isHouse ? 1 : 2))
         .toList();
   }
+
+  Habitation getHabitationDetailsById(int id) {
+    try {
+      return _habitations.firstWhere(
+        (habitation) => habitation.id == id,
+        orElse: () => throw Exception('Habitation with id $id not found.'),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

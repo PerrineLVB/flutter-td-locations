@@ -1,4 +1,3 @@
-
 import 'location.dart';
 
 class LocationsData {
@@ -186,6 +185,6 @@ class LocationsData {
   ];
 
   static List<Location> buildList() {
-    return data.map( (item) => Location.fromJson(item)).toList();
+    return data.map((item) => Location.fromJson(item)).toList();
   }
 }

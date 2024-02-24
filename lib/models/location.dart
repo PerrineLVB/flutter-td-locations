@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:location/models/facture.dart';
 
 import 'habitation.dart';
@@ -16,7 +18,7 @@ class Location {
 
   Location(this.id, this.idhabitation, this.dateDebut, this.dateFin,
       this.montanttotal, this.montantverse,
-  {this.facture, this.habitation, this.optionpayantes = const []});
+  {this.facture, this.optionpayantes = const []});
 
   Location.fromJson(Map<String, dynamic> json)
       : id = json['id'],
