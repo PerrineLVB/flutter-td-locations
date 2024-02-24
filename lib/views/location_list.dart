@@ -69,83 +69,78 @@ class _LocationListState extends State<LocationList> {
           height: 150,
           width: MediaQuery.of(context).size.width,
           child: (Card(
-            child: Column(
-              children: [
-                Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ListTile(
-                          title: Text(HabitationService()
-                              .getHabitationDetailsById(location.idhabitation)
-                              .libelle),
-                          subtitle: Text(HabitationService()
-                              .getHabitationDetailsById(location.idhabitation)
-                              .adresse),
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // ListTile(
+                    //   title: Text(HabitationService()
+                    //       .getHabitationDetailsById(location.idhabitation)
+                    //       .libelle),
+                    //   subtitle: Text(HabitationService()
+                    //       .getHabitationDetailsById(location.idhabitation)
+                    //       .adresse),
+                    // ),
+                    Text('${location.montanttotal} €',
+                        style: const TextStyle(fontSize: 20)),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(children: [
+                        const Icon(
+                          Icons.calendar_today,
+                          color: darkBlue,
                         ),
-                        Text('${location.montanttotal} €',
-                            style: const TextStyle(fontSize: 20)),
-                      ],
+                        const SizedBox(width: 8.0),
+                        Text(
+                          _formatDate(location.dateDebut),
+                          style: const TextStyle(color: darkBlue, fontSize: 18),
+                        ),
+                      ]),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(children: [
-                            const Icon(
-                              Icons.calendar_today,
-                              color: darkBlue,
-                            ),
-                            const SizedBox(width: 8.0),
-                            Text(
-                              _formatDate(location.dateDebut),
-                              style: const TextStyle(
-                                  color: darkBlue, fontSize: 18),
-                            ),
-                          ]),
-                        ),
-                        const CircleAvatar(
-                          radius: 25,
-                          backgroundColor: darkBlue,
-                          child: Icon(
-                            Icons.arrow_right_alt,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.calendar_today,
-                                color: darkBlue,
-                              ),
-                              const SizedBox(width: 8.0),
-                              Text(
-                                _formatDate(location.dateFin),
-                                style: const TextStyle(
-                                    color: darkBlue, fontSize: 18),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                    const CircleAvatar(
+                      radius: 25,
+                      backgroundColor: darkBlue,
+                      child: Icon(
+                        Icons.arrow_right_alt,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  Text(
-                    location.facture != null
-                        ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
-                        : 'Aucune facture',
-                  )
-                ])
-              ],
-            ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.calendar_today,
+                            color: darkBlue,
+                          ),
+                          const SizedBox(width: 8.0),
+                          Text(
+                            _formatDate(location.dateFin),
+                            style:
+                                const TextStyle(color: darkBlue, fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Text(
+                location.facture != null
+                    ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
+                    : 'Aucune facture',
+              )
+            ]),
           )),
         )
       ]),
