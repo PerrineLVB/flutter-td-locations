@@ -1,12 +1,11 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:location/models/user.dart';
-
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   final String routeNameNext;
-  const RegisterPage(this.routeNameNext, {Key? key}) : super(key: key);
+  const RegisterPage(this.routeNameNext, {super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();

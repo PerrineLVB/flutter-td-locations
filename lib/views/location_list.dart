@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/colors.dart';
 import 'package:location/models/location.dart';
-import 'package:location/models/habitation.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/services/location_service.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
@@ -16,7 +15,7 @@ class LocationListArgument {
 class LocationList extends StatefulWidget {
   static String routeName = '/locations';
   final String routeNameNext;
-  const LocationList(this.routeNameNext, {Key? key}) : super(key: key);
+  const LocationList(this.routeNameNext, {super.key});
 
   @override
   State<LocationList> createState() => _LocationListState();
@@ -72,64 +71,78 @@ class _LocationListState extends State<LocationList> {
           child: (Card(
             child: Column(
               children: [
-                Column(// carte
-                    children: [
-                  Row(
-                    // adresse + prix
-                    children: [
-                      ListTile(
-                        title: Text(HabitationService()
-                            .getHabitationDetailsById(location.idhabitation)
-                            .libelle),
-                        subtitle: Text(HabitationService()
-                            .getHabitationDetailsById(location.idhabitation)
-                            .adresse),
-                      ),
-                      Text('${location.montanttotal} €',
-                          style: const TextStyle(fontSize: 20)),
-                    ],
+                Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ListTile(
+                          title: Text(HabitationService()
+                              .getHabitationDetailsById(location.idhabitation)
+                              .libelle),
+                          subtitle: Text(HabitationService()
+                              .getHabitationDetailsById(location.idhabitation)
+                              .adresse),
+                        ),
+                        Text('${location.montanttotal} €',
+                            style: const TextStyle(fontSize: 20)),
+                      ],
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Row(children: [
-                        const Icon(
-                          Icons.calendar_today,
-                          color: darkBlue,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(children: [
+                            const Icon(
+                              Icons.calendar_today,
+                              color: darkBlue,
+                            ),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              _formatDate(location.dateDebut),
+                              style: const TextStyle(
+                                  color: darkBlue, fontSize: 18),
+                            ),
+                          ]),
                         ),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          _formatDate(location.dateDebut),
-                          style: const TextStyle(color: darkBlue),
-                        ),
-                      ]),
-                      const CircleAvatar(
-                        radius: 25,
-                        backgroundColor: darkBlue,
-                        child: Icon(
-                          Icons.arrow_right_alt,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.calendar_today,
-                            color: darkBlue,
+                        const CircleAvatar(
+                          radius: 25,
+                          backgroundColor: darkBlue,
+                          child: Icon(
+                            Icons.arrow_right_alt,
+                            color: Colors.white,
                           ),
-                          const SizedBox(width: 8.0),
-                          Text(
-                            _formatDate(location.dateFin),
-                            style: const TextStyle(color: darkBlue),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.calendar_today,
+                                color: darkBlue,
+                              ),
+                              const SizedBox(width: 8.0),
+                              Text(
+                                _formatDate(location.dateFin),
+                                style: const TextStyle(
+                                    color: darkBlue, fontSize: 18),
+                              ),
+                            ],
                           ),
-                        ],
-                      )
-                    ],
-                  ), // dates
+                        )
+                      ],
+                    ),
+                  ),
                   Text(
                     location.facture != null
                         ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
                         : 'Aucune facture',
-                  ) // facture
+                  )
                 ])
               ],
             ),

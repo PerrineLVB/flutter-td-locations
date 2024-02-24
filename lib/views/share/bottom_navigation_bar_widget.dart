@@ -4,8 +4,7 @@ import 'package:location/views/profil.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   final int indexSelected;
-  const BottomNavigationBarWidget(this.indexSelected, {Key? key})
-      : super(key: key);
+  const BottomNavigationBarWidget(this.indexSelected, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +25,15 @@ class BottomNavigationBarWidget extends StatelessWidget {
         BottomNavigationBarItem(
           icon: isUserNotConnected
               ? const Icon(Icons.shopping_cart_outlined)
-              : BadgeWidget(
+              : const BadgeWidget(
                   value: 0,
                   top: 0,
                   right: 0,
-                  child: const Icon(Icons.shopping_cart),
+                  child: Icon(Icons.shopping_cart),
                 ),
           label: 'locations',
         ),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'Profil',
         ),
@@ -66,7 +65,7 @@ class BadgeWidget extends StatelessWidget {
   final int value;
   final Color? color;
 
-  BadgeWidget({
+  const BadgeWidget({super.key, 
     required this.child,
     required this.value,
     required this.top,
@@ -83,17 +82,17 @@ class BadgeWidget extends StatelessWidget {
         value == 0
             ? Container()
             : Positioned(
-                right: this.right,
-                top: this.top,
+                right: right,
+                top: top,
                 child: Container(
-                  padding: EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: this.color != null ? this.color : Colors.red),
+                      color: color ?? Colors.red),
                   child: Text(
                     value.toString(),
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10, color: Colors.white),
+                    style: const TextStyle(fontSize: 10, color: Colors.white),
                   ),
                 ),
               ),

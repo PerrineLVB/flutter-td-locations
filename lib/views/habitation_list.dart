@@ -66,34 +66,32 @@ class HabitationList extends StatelessWidget {
 
   _buildDetails(Habitation habitation) {
     var format = NumberFormat('### €');
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: ListTile(
-                  title: Text(habitation.libelle),
-                  subtitle: Text(habitation.adresse),
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: ListTile(
+                title: Text(habitation.libelle),
+                subtitle: Text(habitation.adresse),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                format.format(habitation.prixmois),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Roboto',
+                  fontSize: 22,
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  format.format(habitation.prixmois),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto',
-                    fontSize: 22,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          HabitationFeaturesWidget(habitation),
-        ],
-      ),
+            ),
+          ],
+        ),
+        HabitationFeaturesWidget(habitation),
+      ],
     );
   }
 }

@@ -10,9 +10,9 @@ class Profil extends StatelessWidget {
   static String routeName = 'profil';
   final String routeNameNext;
 
-  const Profil(this.routeNameNext, {Key? key}) : super(key: key);
+  const Profil(this.routeNameNext, {super.key});
   @override
   Widget build(BuildContext context) {
-    return Text("Widget à faire");
+    return const Text("Widget à faire");
   }
 }

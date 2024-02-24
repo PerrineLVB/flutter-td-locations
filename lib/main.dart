@@ -20,7 +20,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: MyHomePage(title: 'Mes locations'),
-        localizationsDelegates: [
+        localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate
         ],
         supportedLocales: const [
@@ -54,7 +54,7 @@ class MyHomePage extends StatelessWidget {
   final String title;
   late List<TypeHabitat> _typehabitats;
   late List<Habitation> _habitations;
-  MyHomePage({required this.title, Key? key}) : super(key: key) {
+  MyHomePage({required this.title, super.key}) {
     _habitations = service.getHabitationsTop10();
     _typehabitats = service.getTypeHabitats();
   }
@@ -62,16 +62,16 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(1),
+      bottomNavigationBar: const BottomNavigationBarWidget(0),
       appBar: AppBar(
         title: Text(title),
       ),
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             _buildTypeHabitat(context),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _buildDerniereLocation(context),
           ],
         ),
@@ -81,7 +81,7 @@ class MyHomePage extends StatelessWidget {
 
   _buildTypeHabitat(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(6.0),
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -110,7 +110,7 @@ class MyHomePage extends StatelessWidget {
           color: LocationStyle.backgroundColorPurple,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        margin: EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
             Navigator.push(
@@ -127,7 +127,7 @@ class MyHomePage extends StatelessWidget {
                 icon,
                 color: Colors.white70,
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               Text(
                 typeHabitat.libelle,
                 style: LocationTextStyle.regularWhiteTextStyle,
@@ -140,7 +140,7 @@ class MyHomePage extends StatelessWidget {
   }
 
   _buildDerniereLocation(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 240,
       child: ListView.builder(
         itemCount: _habitations.length,
@@ -157,7 +157,7 @@ class MyHomePage extends StatelessWidget {
 
     return Container(
       width: 240,
-      margin: EdgeInsets.all(4.0),
+      margin: const EdgeInsets.all(4.0),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -182,7 +182,7 @@ class MyHomePage extends StatelessWidget {
             ),
             Row(
               children: [
-                Icon(Icons.location_on_outlined),
+                const Icon(Icons.location_on_outlined),
                 Text(
                   habitation.adresse,
                   style: LocationTextStyle.regularTextStyle,
