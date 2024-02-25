@@ -41,6 +41,7 @@ class _LocationListState extends State<LocationList> {
         child: FutureBuilder(
           future: _locations,
           builder: (context, snapshot) {
+            print(snapshot.data?.map((message) => message.idhabitation));
             if (!snapshot.hasData) {
               return const CircularProgressIndicator();
             } else {
@@ -62,88 +63,89 @@ class _LocationListState extends State<LocationList> {
   }
 
   _buildRow(Location location, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      child: Column(children: [
-        SizedBox(
-          height: 150,
-          width: MediaQuery.of(context).size.width,
-          child: (Card(
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // ListTile(
-                    //   title: Text(HabitationService()
-                    //       .getHabitationDetailsById(location.idhabitation)
-                    //       .libelle),
-                    //   subtitle: Text(HabitationService()
-                    //       .getHabitationDetailsById(location.idhabitation)
-                    //       .adresse),
-                    // ),
-                    Text('${location.montanttotal} €',
-                        style: const TextStyle(fontSize: 20)),
-                  ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: ListTile(
+                  title: Text(HabitationService()
+                      .getHabitationDetailsById(location.idhabitation)
+                      .libelle),
+                  subtitle: Text(HabitationService()
+                      .getHabitationDetailsById(location.idhabitation)
+                      .adresse),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(children: [
-                        const Icon(
-                          Icons.calendar_today,
-                          color: darkBlue,
-                        ),
-                        const SizedBox(width: 8.0),
-                        Text(
-                          _formatDate(location.dateDebut),
-                          style: const TextStyle(color: darkBlue, fontSize: 18),
-                        ),
-                      ]),
-                    ),
-                    const CircleAvatar(
-                      radius: 25,
-                      backgroundColor: darkBlue,
-                      child: Icon(
-                        Icons.arrow_right_alt,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.calendar_today,
-                            color: darkBlue,
-                          ),
-                          const SizedBox(width: 8.0),
-                          Text(
-                            _formatDate(location.dateFin),
-                            style:
-                                const TextStyle(color: darkBlue, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                padding: const EdgeInsets.only(right: 50),
+                child: Text('${location.montanttotal.toInt()} €',
+                    style: const TextStyle(fontSize: 20)),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(children: [
+                  const Icon(
+                    Icons.calendar_today,
+                    color: darkBlue,
+                  ),
+                  const SizedBox(width: 8.0),
+                  Text(
+                    _formatDate(location.dateDebut),
+                    style: const TextStyle(color: darkBlue, fontSize: 18),
+                  ),
+                ]),
+              ),
+              const CircleAvatar(
+                radius: 25,
+                backgroundColor: darkBlue,
+                child: Icon(
+                  Icons.arrow_right_alt,
+                  color: Colors.white,
                 ),
               ),
-              Text(
-                location.facture != null
-                    ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
-                    : 'Aucune facture',
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_today,
+                      color: darkBlue,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      _formatDate(location.dateFin),
+                      style: const TextStyle(color: darkBlue, fontSize: 18),
+                    ),
+                  ],
+                ),
               )
-            ]),
-          )),
-        )
-      ]),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            location.facture != null
+                ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
+                : 'Aucune facture',
+            textAlign: TextAlign.start,
+          ),
+        ),
+      ],
     );
   }
 }
