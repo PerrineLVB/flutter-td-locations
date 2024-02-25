@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:location/models/habitation.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/views/habitation_details.dart';
+import 'package:location/views/share/custom_app_bar.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
 
 class HabitationList extends StatelessWidget {
@@ -17,10 +18,7 @@ class HabitationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:
-            Text("Liste des ${isHouseList ? 'maisons' : 'appartements'}"),
-      ),
+      appBar: CustomAppBar(titleContent: "Liste des ${isHouseList ? 'maisons' : 'appartements'}"),
       body: Center(
         child: ListView.builder(
           itemCount: _habitations.length,

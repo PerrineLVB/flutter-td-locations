@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/colors.dart';
 import 'package:location/models/habitation.dart';
+import 'package:location/views/share/custom_app_bar.dart';
 
 class ResaLocation extends StatefulWidget {
   final Habitation habitation;
@@ -225,9 +226,7 @@ class _ResaLocationState extends State<ResaLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reservation'),
-      ),
+      appBar: CustomAppBar(titleContent: 'Réservation'),
       body: ListView(
         padding: const EdgeInsets.all(4.0),
         children: [

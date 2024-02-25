@@ -12,6 +12,7 @@ import 'package:location/views/location_list.dart';
 import 'package:location/views/login_page.dart';
 import 'package:location/views/profil.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
+import 'package:location/views/share/custom_app_bar.dart';
 
 
 void main() {
@@ -63,9 +64,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const BottomNavigationBarWidget(0),
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: CustomAppBar(titleContent: title),
       body: Center(
         child: Column(
           children: [
